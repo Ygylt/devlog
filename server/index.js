@@ -18,6 +18,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/auth', require('./routes/auth'));
+app.use('/api/entries', require('./routes/entries'));
+app.use('/api/projects', require('./routes/projects'));
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB connected'))
