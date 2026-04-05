@@ -20,22 +20,22 @@ passport.use(new GitHubStrategy({
 }, async (accessToken, refreshToken, profile, done) => {
   try {
     let user = await User.findOne({ githubId: profile.id });
-    if (!user) {
-        user.githubToken = accessToken;
-        await user.GITHUB_CALLBACK_URL
-        return done(null, user);
+    if (user) {
+      user.githubToken = accessToken;
+      await user.save();
+      return done(null, user);
     }
     user = await User.create({
       githubId: profile.id,
       username: profile.username,
-      displayName: profile.displayName,
-      avatar: profile.photos[0].value,
+      displayName: profile.displayName || profile.username,
+      avatar: profile.photos?.[0]?.value || '',
       githubToken: accessToken,
     });
-    return done(null,user);
-    } catch (err) {
-    return done(err);
+    return done(null, user);
+  } catch (err) {
+    return done(err, null);
   }
 }));
 
-module
+module.exports = passport;
