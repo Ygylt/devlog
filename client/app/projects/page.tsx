@@ -177,7 +177,7 @@ export default function ProjectsPage() {
                   <p className="text-gray-400 text-sm mb-3">{project.description}</p>
                 )}
                 {project.githubRepo && (
-                  
+                  <a
                     href={project.githubRepo}
                     target="_blank"
                     rel="noopener noreferrer"
