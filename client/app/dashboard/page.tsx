@@ -1,8 +1,8 @@
 "use client";
+import Navbar from "../components/Navbar";
 import { useAuth } from "../context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import axios from "axios";
 
 const API = process.env.NEXT_PUBLIC_API_URL;
@@ -18,7 +18,7 @@ interface Entry {
 }
 
 export default function Dashboard() {
-  const { user, loading, logout } = useAuth();
+  const { user, loading } = useAuth();
   const router = useRouter();
   const [entries, setEntries] = useState<Entry[]>([]);
   const [fetching, setFetching] = useState(true);
@@ -47,14 +47,7 @@ export default function Dashboard() {
 
   return (
     <main className="min-h-screen bg-[#0d1117]">
-      <nav className="border-b border-[#30363d] px-6 py-4 flex items-center justify-between">
-        <h1 className="text-white font-bold text-xl">DevLog</h1>
-        <div className="flex items-center gap-4">
-          <Image src={user.avatar} alt={user.username} width={32} height={32} className="rounded-full" />
-          <span className="text-gray-400 text-sm">{user.displayName}</span>
-          <button onClick={logout} className="text-gray-400 hover:text-white text-sm transition-colors">Logout</button>
-        </div>
-      </nav>
+      <Navbar />
 
       <div className="max-w-4xl mx-auto px-6 py-10">
         <div className="flex items-center justify-between mb-8">
