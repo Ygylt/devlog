@@ -7,6 +7,12 @@ import axios from "axios";
 
 const API = process.env.NEXT_PUBLIC_API_URL;
 
+interface Project {
+  _id: string;
+  name: string;
+  color: string;
+}
+
 interface Entry {
   _id: string;
   title: string;
@@ -15,6 +21,7 @@ interface Entry {
   wins: string[];
   blockers: string[];
   createdAt: string;
+  project?: Project;
 }
 
 export default function Dashboard() {
@@ -79,7 +86,20 @@ export default function Dashboard() {
                 className="bg-[#161b22] border border-[#30363d] rounded-xl p-5 cursor-pointer hover:border-indigo-500 transition-colors"
               >
                 <div className="flex items-start justify-between mb-3">
-                  <h3 className="text-white font-semibold text-lg">{entry.title}</h3>
+                  <div className="flex items-center gap-3">
+                    {entry.project && (
+                      <span
+                        className="text-xs px-2 py-1 rounded-md font-medium"
+                        style={{
+                          backgroundColor: entry.project.color + "30",
+                          color: entry.project.color,
+                        }}
+                      >
+                        {entry.project.name}
+                      </span>
+                    )}
+                    <h3 className="text-white font-semibold text-lg">{entry.title}</h3>
+                  </div>
                   <div className="flex items-center gap-3">
                     {entry.mood && (
                       <span className="text-xs text-indigo-300 bg-indigo-500/20 px-2 py-1 rounded-md capitalize">
