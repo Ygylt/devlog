@@ -1,4 +1,5 @@
 "use client";
+import Navbar from "../../components/Navbar";
 import { useAuth } from "../../context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -79,11 +80,11 @@ export default function NewEntry() {
 
   return (
     <main className="min-h-screen bg-[#0d1117]">
-      <nav className="border-b border-[#30363d] px-6 py-4 flex items-center justify-between">
+      <Navbar />
+      <div className="border-b border-[#30363d] px-6 py-3 flex items-center justify-between">
         <button onClick={() => router.push("/dashboard")} className="text-gray-400 hover:text-white transition-colors text-sm">
           Back
         </button>
-        <h1 className="text-white font-bold text-xl">New Entry</h1>
         <button
           onClick={handleSave}
           disabled={saving}
@@ -91,7 +92,7 @@ export default function NewEntry() {
         >
           {saving ? "Saving..." : "Save Entry"}
         </button>
-      </nav>
+      </div>
 
       <div className="max-w-3xl mx-auto px-6 py-8 space-y-6">
         <input

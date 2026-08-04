@@ -1,4 +1,5 @@
 "use client";
+import Navbar from "../../components/Navbar";
 import { useAuth } from "../../context/AuthContext";
 import { useRouter, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -61,34 +62,32 @@ export default function EntryPage() {
 
   return (
     <main className="min-h-screen bg-[#0d1117]">
-      <nav className="border-b border-[#30363d] px-6 py-4 flex items-center justify-between">
-        <button onClick={() => router.push("/dashboard")} className="text-gray-400 hover:text-white transition-colors text-sm">
-          Back to dashboard
-        </button>
-        <button
-          onClick={handleDelete}
-          disabled={deleting}
-          className="text-red-400 hover:text-red-300 disabled:opacity-50 text-sm transition-colors"
-        >
-          {deleting ? "Deleting..." : "Delete entry"}
-        </button>
-      </nav>
+      <Navbar />
 
       <div className="max-w-3xl mx-auto px-6 py-10 space-y-8">
-        <div>
-          <div className="flex items-center gap-3 mb-3">
-            {entry.mood && (
-              <span className="text-xs text-indigo-300 bg-indigo-500/20 px-2 py-1 rounded-md capitalize">
-                {entry.mood}
+        <div className="flex items-start justify-between">
+          <div>
+            <div className="flex items-center gap-3 mb-3">
+              {entry.mood && (
+                <span className="text-xs text-indigo-300 bg-indigo-500/20 px-2 py-1 rounded-md capitalize">
+                  {entry.mood}
+                </span>
+              )}
+              <span className="text-gray-500 text-sm">
+                {new Date(entry.createdAt).toLocaleDateString("en-US", {
+                  weekday: "long", year: "numeric", month: "long", day: "numeric"
+                })}
               </span>
-            )}
-            <span className="text-gray-500 text-sm">
-              {new Date(entry.createdAt).toLocaleDateString("en-US", {
-                weekday: "long", year: "numeric", month: "long", day: "numeric"
-              })}
-            </span>
+            </div>
+            <h1 className="text-4xl font-bold text-white">{entry.title}</h1>
           </div>
-          <h1 className="text-4xl font-bold text-white">{entry.title}</h1>
+          <button
+            onClick={handleDelete}
+            disabled={deleting}
+            className="text-red-400 hover:text-red-300 disabled:opacity-50 text-sm transition-colors mt-1"
+          >
+            {deleting ? "Deleting..." : "Delete"}
+          </button>
         </div>
 
         {entry.tags.length > 0 && (
