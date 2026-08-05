@@ -19,3 +19,8 @@ A smart developer journal that connects to your GitHub to automatically track yo
 - Daily dev journal entries with mood tracking
 - Wins and blockers tracking
 - Project organization
+
+## Roadmap
+- GitHub integration via Go microservice
+- Python NLP for smart entry summaries
+- Natural language search
